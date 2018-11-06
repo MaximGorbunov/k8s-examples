@@ -18,6 +18,13 @@ spec:
         image: mongo:4.1
         ports:
         - containerPort: 8081
+        volumeMounts:
+        - mountPath: /data/db
+          name: mongo-volume
+    volumes:
+    - name: mongo-volume
+      hostPath: /data/db
+      type: DirectoryOrCreate
 ---
 apiVersion: v1
 kind: Service
