@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cards-demo-pod
+  namespace: default
+spec:
+  containers:
+  - name: demo-container
+    image: mgorbunov/card-demo:1.0
+    ports:
+    - containerPort: 8080

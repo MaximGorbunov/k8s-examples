@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: cards-rs
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cards-demo
+  template:
+    metadata:
+      labels:
+        app: cards-demo
+    spec:
+      containers:
+      - name: cards-container
+        image: mgorbunov/card-demo:1.0
+        ports:
+        - containerPort: 8080
