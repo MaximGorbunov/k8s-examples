@@ -1,40 +1,18 @@
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: mongo-set
-spec:
-  selector:
-    matchLabels:
-      app: mongo
-  serviceName: mongo
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: mongo
-    spec:
-      containers:
-      - name: eureka
-        image: mongo:4.1
-        ports:
-        - containerPort: 8081
-        volumeMounts:
-        - mountPath: /data/db
-          name: mongo-volume
-    volumes:
-    - name: mongo-volume
-      hostPath: /data/db
-      type: DirectoryOrCreate
----
 apiVersion: v1
-kind: Service
+kind: Pod
 metadata:
-  name: mongo
+  name: mongodb
 spec:
-  clusterIP: None
-  selector:
-    app: mongo
-  ports:
-  - protocol: TCP
-    port: 8081
-    targetPort: 9002
+  containers:
+  - name: mongodb
+    image: mongo:4.1
+    ports:
+    - containerPort: 8081
+    volumeMounts:
+    - mountPath: /data/db
+      name: mongo-volume
+  volumes:
+  - name: mongo-volume
+    hostPath:
+      path: /data/db
+      type: DirectoryOrCreate
